@@ -1,0 +1,5 @@
+(?<=,wt\),At=)'(.*)'(?=,bt="swagger-editor-content") 
+
+Above was the way how to select preinserted petstore oas in swagger-editor-bundle.js.download
+
+Just retrieve your json oas description from the project and insert it instead of selected one.

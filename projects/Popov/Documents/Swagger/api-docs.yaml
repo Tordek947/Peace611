@@ -1,0 +1,929 @@
+openapi: 3.0.1
+info:
+  title: ITCampus API
+  description: Application for integration of students personal information and their IT projects to provide a convenient way of CV generation
+  version: 1.0.1
+servers:
+  - url: 'https://localhost:8443'
+    description: Generated server url
+tags:
+  - name: user
+    description: the user API
+  - name: project
+    description: user projects API
+  - name: profile
+    description: 'user profile: the bunch of user data such as personalInfo, projects, etc.'
+  - name: personalInfo
+    description: user personal information
+  - name: file
+    description: 'file operation (i.e., retrieving dynamic image file)'
+  - name: authentication
+    description: authentication API
+paths:
+  /rest/authentication:
+    get:
+      tags:
+        - authentication
+      summary: Get currently authenticated user
+      operationId: getCurrentUser
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserData'
+        '401':
+          description: Unauthorized
+          content: {}
+      security:
+        - jwtScheme: []
+    post:
+      tags:
+        - authentication
+      summary: Recieve the authentcation token
+      operationId: authenticate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CredentialsData'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthData'
+        '401':
+          description: Bad credentials
+          content: {}
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiExceptionData'
+  '/resources/{fileName}':
+    get:
+      tags:
+        - file
+      summary: Download file by fileName
+      operationId: downloadFile
+      parameters:
+        - name: fileName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            '*/*': {}
+        '400':
+          description: 'Bad request: invalid fileName format'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiExceptionData'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiExceptionData'
+        '500':
+          description: 'Internal server error: unable to fetch the file'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiExceptionData'
+  /resources/temporary:
+    post:
+      tags:
+        - file
+      summary: Upload temporary user file
+      operationId: uploadTemporaryFile
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TemporaryFileData'
+        '401':
+          description: Unauthorized
+          content: {}
+      security:
+        - jwtScheme: []
+  '/rest/personalInfos/{username}':
+    get:
+      tags:
+        - personalInfo
+      summary: Get personal information for specified user by username
+      operationId: getPersonalInfo
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalInfoData'
+        '401':
+          description: Unauthorized
+          content: {}
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiExceptionData'
+      security:
+        - jwtScheme: []
+    put:
+      tags:
+        - personalInfo
+      summary: Update personal information for user by login
+      operationId: updatePersonalInfo
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonalInfoData'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PersonalInfoData'
+        '401':
+          description: Unauthorized
+          content: {}
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiExceptionData'
+      security:
+        - jwtScheme: []
+  '/rest/profiles/{username}':
+    get:
+      tags:
+        - profile
+      summary: Get profile for specified user by username
+      operationId: getProfileByLogin
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileData'
+        '401':
+          description: Unauthorized
+          content: {}
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiExceptionData'
+      security:
+        - jwtScheme: []
+  '/rest/users/{username}/projects':
+    get:
+      tags:
+        - project
+      summary: Get all user projects by username
+      operationId: getUserProjects
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProjectData'
+        '401':
+          description: Unauthorized
+          content: {}
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiExceptionData'
+      security:
+        - jwtScheme: []
+    post:
+      tags:
+        - project
+      summary: Create new project for user with specified username
+      operationId: createUserProject
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProjectData'
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectData'
+        '400':
+          description: 'Bad request: specified temporary file is not a suitable image'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiExceptionData'
+        '401':
+          description: Unauthorized
+          content: {}
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiExceptionData'
+      security:
+        - jwtScheme: []
+  '/rest/users/{username}/projects/{projectId}':
+    put:
+      tags:
+        - project
+      summary: Update user project by username and project id
+      operationId: updateUserProject
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProjectData'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectData'
+        '401':
+          description: Unauthorized
+          content: {}
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiExceptionData'
+      security:
+        - jwtScheme: []
+    delete:
+      tags:
+        - project
+      summary: Delete user project by username and project id
+      operationId: deleteUserProject
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '204':
+          description: Successful operation
+        '401':
+          description: Unauthorized
+          content: {}
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiExceptionData'
+      security:
+        - jwtScheme: []
+  '/rest/users/{username}/projects/{projectId}/image':
+    put:
+      tags:
+        - project
+      summary: Update the image of user project by username and project id
+      operationId: updateUserProjectImage
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: projectId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProjectData'
+        '401':
+          description: Unauthorized
+          content: {}
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiExceptionData'
+      security:
+        - jwtScheme: []
+  '/rest/users/{username}/avatar':
+    get:
+      tags:
+        - user
+      summary: Get user avatar by username
+      operationId: getUserAvatar
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/Resource'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiExceptionData'
+    put:
+      tags:
+        - user
+      summary: Update user avatar by username
+      operationId: changeUserAvatar
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Successful operation
+        '401':
+          description: Unauthorized
+          content: {}
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiExceptionData'
+      security:
+        - jwtScheme: []
+  /rest/users:
+    get:
+      tags:
+        - user
+      summary: Get list of all registered users
+      operationId: getAllUsers
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PublicUserData'
+    post:
+      tags:
+        - user
+      summary: Create a new user
+      operationId: registerUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistrationData'
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicUserData'
+  '/rest/users/{username}':
+    get:
+      tags:
+        - user
+      summary: Get user by username
+      operationId: getUserByLogin
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicUserData'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiExceptionData'
+    put:
+      tags:
+        - user
+      summary: Update user by username
+      operationId: updatePublicUserByLogin
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PublicUserData'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicUserData'
+        '401':
+          description: Unauthorized
+          content: {}
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiExceptionData'
+      security:
+        - jwtScheme: []
+    delete:
+      tags:
+        - user
+      summary: Delete user by username
+      operationId: deleteUser
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Successful operation
+        '401':
+          description: Unauthorized
+          content: {}
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiExceptionData'
+      security:
+        - jwtScheme: []
+components:
+  schemas:
+    CredentialsData:
+      required:
+        - password
+        - username
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    ApiExceptionData:
+      required:
+        - date
+        - debugMessage
+        - message
+        - status
+        - subExceptions
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+            - 100 CONTINUE
+            - 101 SWITCHING_PROTOCOLS
+            - 102 PROCESSING
+            - 103 CHECKPOINT
+            - 200 OK
+            - 201 CREATED
+            - 202 ACCEPTED
+            - 203 NON_AUTHORITATIVE_INFORMATION
+            - 204 NO_CONTENT
+            - 205 RESET_CONTENT
+            - 206 PARTIAL_CONTENT
+            - 207 MULTI_STATUS
+            - 208 ALREADY_REPORTED
+            - 226 IM_USED
+            - 300 MULTIPLE_CHOICES
+            - 301 MOVED_PERMANENTLY
+            - 302 FOUND
+            - 302 MOVED_TEMPORARILY
+            - 303 SEE_OTHER
+            - 304 NOT_MODIFIED
+            - 305 USE_PROXY
+            - 307 TEMPORARY_REDIRECT
+            - 308 PERMANENT_REDIRECT
+            - 400 BAD_REQUEST
+            - 401 UNAUTHORIZED
+            - 402 PAYMENT_REQUIRED
+            - 403 FORBIDDEN
+            - 404 NOT_FOUND
+            - 405 METHOD_NOT_ALLOWED
+            - 406 NOT_ACCEPTABLE
+            - 407 PROXY_AUTHENTICATION_REQUIRED
+            - 408 REQUEST_TIMEOUT
+            - 409 CONFLICT
+            - 410 GONE
+            - 411 LENGTH_REQUIRED
+            - 412 PRECONDITION_FAILED
+            - 413 PAYLOAD_TOO_LARGE
+            - 413 REQUEST_ENTITY_TOO_LARGE
+            - 414 URI_TOO_LONG
+            - 414 REQUEST_URI_TOO_LONG
+            - 415 UNSUPPORTED_MEDIA_TYPE
+            - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+            - 417 EXPECTATION_FAILED
+            - 418 I_AM_A_TEAPOT
+            - 419 INSUFFICIENT_SPACE_ON_RESOURCE
+            - 420 METHOD_FAILURE
+            - 421 DESTINATION_LOCKED
+            - 422 UNPROCESSABLE_ENTITY
+            - 423 LOCKED
+            - 424 FAILED_DEPENDENCY
+            - 426 UPGRADE_REQUIRED
+            - 428 PRECONDITION_REQUIRED
+            - 429 TOO_MANY_REQUESTS
+            - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+            - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+            - 500 INTERNAL_SERVER_ERROR
+            - 501 NOT_IMPLEMENTED
+            - 502 BAD_GATEWAY
+            - 503 SERVICE_UNAVAILABLE
+            - 504 GATEWAY_TIMEOUT
+            - 505 HTTP_VERSION_NOT_SUPPORTED
+            - 506 VARIANT_ALSO_NEGOTIATES
+            - 507 INSUFFICIENT_STORAGE
+            - 508 LOOP_DETECTED
+            - 509 BANDWIDTH_LIMIT_EXCEEDED
+            - 510 NOT_EXTENDED
+            - 511 NETWORK_AUTHENTICATION_REQUIRED
+        date:
+          type: string
+          format: date-time
+        message:
+          type: string
+        debugMessage:
+          type: string
+        subExceptions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiSubExceptionData'
+    ApiSubExceptionData:
+      required:
+        - exceptionName
+        - message
+      type: object
+      properties:
+        exceptionName:
+          type: string
+        message:
+          type: string
+    AuthData:
+      required:
+        - token
+        - username
+      type: object
+      properties:
+        username:
+          type: string
+          description: username by which the user can be identified
+        token:
+          type: string
+          description: authentication JWT
+    UserData:
+      required:
+        - authorities
+        - login
+        - name
+        - surname
+      type: object
+      properties:
+        login:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+        authorities:
+          type: array
+          description: set of granted authorities
+          items:
+            type: string
+            description: set of granted authorities
+            enum:
+              - ROLE_USER
+              - ROLE_ADMIN
+    TemporaryFileData:
+      required:
+        - id
+        - requestUrl
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        requestUrl:
+          type: string
+          description: The url to download the file
+    PersonalInfoData:
+      required:
+        - city
+        - dateOfBirth
+        - education
+        - faculty
+        - firstEducationYear
+        - languages
+        - lastEducationYear
+        - phoneNumber
+        - skills
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/PublicUserData'
+        phoneNumber:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date-time
+        city:
+          type: string
+        education:
+          type: string
+        faculty:
+          type: string
+        firstEducationYear:
+          type: integer
+          format: int32
+        lastEducationYear:
+          type: integer
+          format: int32
+        skills:
+          type: object
+          additionalProperties:
+            type: string
+            description: 'key stands for skill name, value stands for skill assessment'
+          description: 'key stands for skill name, value stands for skill assessment'
+        languages:
+          type: object
+          additionalProperties:
+            type: string
+            description: 'key stands for language name, value stands for language assessment'
+          description: 'key stands for language name, value stands for language assessment'
+    PublicUserData:
+      required:
+        - login
+        - name
+        - surname
+      type: object
+      properties:
+        login:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+    ProfileData:
+      required:
+        - projects
+      type: object
+      properties:
+        personalInfo:
+          $ref: '#/components/schemas/PersonalInfoData'
+        subjects:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubjectData'
+        projects:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProjectData'
+    ProjectData:
+      required:
+        - description
+        - header
+        - id
+        - imageUrl
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        header:
+          type: string
+          description: brief description or name of the project
+        imageUrl:
+          type: string
+        description:
+          type: string
+    SubjectData:
+      required:
+        - academicHours
+        - mark
+        - name
+        - subjectId
+        - teacher
+        - testType
+      type: object
+      properties:
+        name:
+          type: string
+        teacher:
+          type: string
+          description: name of the teacher
+        testType:
+          type: string
+          description: defines whether it was exam or credit as final test
+        subjectId:
+          type: integer
+          format: int32
+        academicHours:
+          type: integer
+          description: quantity of academic hours read for this subject
+          format: int32
+        mark:
+          type: integer
+          format: int32
+    CreateProjectData:
+      required:
+        - description
+        - header
+        - temporaryFileId
+      type: object
+      properties:
+        header:
+          type: string
+        description:
+          type: string
+        temporaryFileId:
+          type: integer
+          description: An id of temporary file for this user to become the image of the project
+          format: int32
+    UpdateProjectData:
+      required:
+        - description
+        - header
+        - id
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        header:
+          type: string
+          description: brief description or name of the project
+        description:
+          type: string
+    RegistrationData:
+      required:
+        - password
+      type: object
+      properties:
+        user:
+          $ref: '#/components/schemas/PublicUserData'
+        password:
+          type: string
+    Resource:
+      type: object
+      properties:
+        url:
+          type: string
+          format: url
+        file:
+          type: string
+          format: binary
+        open:
+          type: boolean
+        description:
+          type: string
+        readable:
+          type: boolean
+        uri:
+          type: string
+          format: uri
+        filename:
+          type: string
+        inputStream:
+          type: object
+  securitySchemes:
+    jwtScheme:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
