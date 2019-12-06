@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.Avatar?>
+<?import com.gluonhq.charm.glisten.mvc.View?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<View fx:id="userProfileView" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="600.0" prefWidth="350.0" stylesheets="@user-profile.css" xmlns="http://javafx.com/javafx/8.0.171"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="ua.com.kl.cmathtutor.itcapp.presenter.UserProfilePresenter">
+    <top>
+        <HBox alignment="CENTER_LEFT" prefHeight="164.0" prefWidth="350.0" spacing="8.0">
+            <children>
+                <Avatar fx:id="avatar" radius="64.0">
+                    <image>
+                        <Image url="@../../../../../../defaultAvatar.jpg"/>
+                    </image>
+                </Avatar>
+                <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="246.0" styleClass=".user-tile">
+                    <children>
+                        <Label fx:id="fullNameLabel" style="-fx-font-size: 32px; -fx-font-weight: bold;"
+                               styleClass=".user-name" text="Попов Григорий" wrapText="true"/>
+                        <TextField fx:id="surnameInput" prefHeight="49.0" prefWidth="103.0" promptText="Your surname"
+                                   style="-fx-font-size: 32px;" text="Попов" visible="false">
+                            <VBox.margin>
+                                <Insets right="16.0"/>
+                            </VBox.margin>
+                        </TextField>
+                        <TextField fx:id="nameInput" promptText="Your name" style="-fx-font-size: 32px;" text="Григорий"
+                                   visible="false">
+                            <VBox.margin>
+                                <Insets right="16.0"/>
+                            </VBox.margin>
+                        </TextField>
+                        <Label fx:id="loginLabel" style="-fx-font-size: 24px; -fx-font-style: italic;"
+                               styleClass=".user-login" text="tordek">
+                            <VBox.margin>
+                                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/>
+                            </VBox.margin>
+                        </Label>
+                    </children>
+                    <padding>
+                        <Insets left="4.0"/>
+                    </padding>
+                </VBox>
+            </children>
+            <padding>
+                <Insets left="16.0"/>
+            </padding>
+        </HBox>
+    </top>
+    <center>
+        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+            <tabs>
+                <Tab text="Personal">
+                    <content>
+                        <VBox>
+                            <children>
+                                <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="350.0" spacing="16.0">
+                                    <children>
+                                        <Label text="Phone"/>
+                                        <TextField fx:id="phoneInput" prefHeight="26.0" prefWidth="104.0"
+                                                   text="0883547182" visible="false"/>
+                                        <Label fx:id="phoneLabel" text="0883547182"/>
+                                    </children>
+                                </HBox>
+                                <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="350.0" spacing="16.0">
+                                    <children>
+                                        <Label text="Birth date"/>
+                                        <DatePicker fx:id="birthDatePicker" prefHeight="26.0" prefWidth="134.0"
+                                                    promptText="Select birth date" visible="false"/>
+                                        <Label fx:id="birthLabel" text="2019-12-06"/>
+                                    </children>
+                                </HBox>
+                                <HBox fx:id="cityInput" alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="350.0"
+                                      spacing="16.0">
+                                    <children>
+                                        <Label text="City"/>
+                                        <TextField prefHeight="26.0" prefWidth="124.0" text="Kyiv" visible="false"/>
+                                        <Label fx:id="cityLabel" text="Kyiv"/>
+                                    </children>
+                                </HBox>
+                            </children>
+                            <padding>
+                                <Insets left="16.0" right="16.0"/>
+                            </padding>
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab text="Education">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <VBox prefHeight="113.0" prefWidth="350.0">
+                                    <children>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="318.0"
+                                              spacing="16.0">
+                                            <children>
+                                                <Label text="University"/>
+                                                <Label fx:id="universityLabel" text="NTUU &quot;KPI&quot;"/>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="318.0"
+                                              spacing="16.0">
+                                            <children>
+                                                <Label text="Faculty"/>
+                                                <Label fx:id="facultyLabel" text="Computer Aided Design"/>
+                                            </children>
+                                        </HBox>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="36.0" prefWidth="318.0"
+                                              spacing="16.0">
+                                            <children>
+                                                <Label text="Education years"/>
+                                                <Label fx:id="educationYearsLabel" text="1999-2005"/>
+                                            </children>
+                                        </HBox>
+                                        <Separator prefHeight="2.0" prefWidth="318.0"/>
+                                    </children>
+                                    <padding>
+                                        <Insets left="16.0" right="16.0"/>
+                                    </padding>
+                                </VBox>
+                                <TableView fx:id="subjectsTable" layoutX="14.0" layoutY="113.0" prefHeight="215.0"
+                                           prefWidth="322.0">
+                                    <columns>
+                                        <TableColumn prefWidth="160.0" text="Subject"/>
+                                        <TableColumn prefWidth="115.0" text="Teacher"/>
+                                        <TableColumn prefWidth="46.0" text="Mark"/>
+                                    </columns>
+                                </TableView>
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Skills">
+                    <content>
+                        <ScrollPane>
+                            <content>
+                                <GridPane fx:id="skillsGridPane" prefHeight="91.0" prefWidth="332.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="NEVER"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0"
+                                               prefWidth="170.0" style="-fx-font-weight: bold;" text="Name"/>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0"
+                                               prefWidth="170.0" style="-fx-font-weight: bold;" text="Quality"
+                                               GridPane.columnIndex="1"/>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0"
+                                               prefWidth="170.0" text="Paint" GridPane.rowIndex="1"/>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0"
+                                               prefWidth="170.0" text="Confident" GridPane.columnIndex="1"
+                                               GridPane.rowIndex="1"/>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0"
+                                               prefWidth="170.0" text="History of Ukraine" GridPane.rowIndex="2"/>
+                                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0"
+                                               prefWidth="176.0" text="Poor" GridPane.columnIndex="1"
+                                               GridPane.rowIndex="2"/>
+                                    </children>
+                                </GridPane>
+                            </content>
+                            <padding>
+                                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/>
+                            </padding>
+                        </ScrollPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER" prefHeight="47.0" prefWidth="350.0" spacing="16.0" BorderPane.alignment="CENTER">
+            <children>
+                <Button fx:id="saveButton" layoutX="158.0" mnemonicParsing="false" text="Save"
+                        visible="false"/>
+                <Button fx:id="editModeButton" mnemonicParsing="false" text="Edit" visible="false"/>
+            </children>
+        </HBox>
+    </bottom>
+</View>

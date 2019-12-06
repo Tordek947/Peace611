@@ -2,6 +2,8 @@ package ua.com.kl.cmathtutor.itcapp.presenter;
 
 import com.gluonhq.charm.glisten.application.MobileApplication;
 import com.gluonhq.charm.glisten.control.AppBar;
+import com.gluonhq.charm.glisten.control.CardPane;
+import com.gluonhq.charm.glisten.control.ProgressIndicator;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import javafx.fxml.FXML;
@@ -10,13 +12,18 @@ import javafx.scene.control.Label;
 public class UsersPresenter {
 
     @FXML
-    private View users;
+    private CardPane userTiles;
+    @FXML
+    private View usersView;
+    @FXML
+    private ProgressIndicator reloadSpinner;
+
 
     @FXML
     private Label label;
 
     public void initialize() {
-        users.showingProperty().addListener((obs, oldValue, newValue) -> {
+        usersView.showingProperty().addListener((obs, oldValue, newValue) -> {
             if (newValue) {
                 AppBar appBar = MobileApplication.getInstance().getAppBar();
                 appBar.setNavIcon(MaterialDesignIcon.MENU.button(e -> 
@@ -29,8 +36,7 @@ public class UsersPresenter {
     }
     
     @FXML
-    void buttonClick() {
-        label.setText("Hello JavaFX Universe!");
+    void reloadUsers() {
     }
     
 }

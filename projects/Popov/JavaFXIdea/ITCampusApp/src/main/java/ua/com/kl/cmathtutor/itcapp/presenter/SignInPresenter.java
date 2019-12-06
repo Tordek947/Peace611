@@ -4,14 +4,21 @@ import com.gluonhq.charm.glisten.animation.BounceInRightTransition;
 import com.gluonhq.charm.glisten.application.MobileApplication;
 import com.gluonhq.charm.glisten.control.AppBar;
 import com.gluonhq.charm.glisten.control.FloatingActionButton;
+import com.gluonhq.charm.glisten.control.TextField;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.PasswordField;
 
 public class SignInPresenter {
 
     @FXML
     private View signInView;
+    @FXML
+    public TextField loginInput;
+    @FXML
+    public PasswordField passwordInput;
 
     public void initialize() {
         signInView.setShowTransitionFactory(BounceInRightTransition::new);
@@ -30,5 +37,17 @@ public class SignInPresenter {
                         System.out.println("Favorite")));
             }
         });
+    }
+
+    @FXML
+    private void onLoginClicked(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    private void OnForgotPasswordClicked(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    private void onSignUpClicked(ActionEvent actionEvent) {
     }
 }
