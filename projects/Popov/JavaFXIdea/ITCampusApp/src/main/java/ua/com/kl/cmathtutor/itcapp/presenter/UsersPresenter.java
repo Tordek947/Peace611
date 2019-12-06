@@ -8,11 +8,14 @@ import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import ua.com.kl.cmathtutor.itcapp.GluonApplication;
 
 public class UsersPresenter {
 
     @FXML
-    private CardPane userTiles;
+    private CardPane<HBox> userTiles;
     @FXML
     private View usersView;
     @FXML
@@ -31,10 +34,16 @@ public class UsersPresenter {
                 appBar.setTitleText("Users");
                 appBar.getActionItems().add(MaterialDesignIcon.SEARCH.button(e -> 
                         System.out.println("Search")));
+
+                userTiles.getItems().forEach(tile -> tile.setOnMouseClicked(this::onUserTileClicked));
             }
         });
     }
-    
+
+    private void onUserTileClicked(MouseEvent mouseEvent) {
+        MobileApplication.getInstance().switchView(GluonApplication.USER_PROFILE_VIEW);
+    }
+
     @FXML
     void reloadUsers() {
     }

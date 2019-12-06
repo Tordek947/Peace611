@@ -20,6 +20,8 @@ mainClassName = 'ua.com.kl.cmathtutor.itcapp.GluonApplication'
 
 dependencies {
     compile 'com.gluonhq:charm:5.0.2'
+// https://mvnrepository.com/artifact/com.google.guava/guava
+    compile group: 'com.google.guava', name: 'guava', version: '28.1-jre'
 }
 
 jfxmobile {
