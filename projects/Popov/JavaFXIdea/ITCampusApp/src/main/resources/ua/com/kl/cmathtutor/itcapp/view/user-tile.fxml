@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.Avatar?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="8.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ua.com.kl.cmathtutor.itcapp.component.UserTileComponent">
+    <children>
+        <Avatar fx:id="avatar" radius="32.0">
+            <image>
+                <Image url="@../../../../../../defaultAvatar.jpg" />
+            </image>
+        </Avatar>
+        <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="246.0" styleClass=".user-tile">
+            <children>
+                <Label fx:id="fullNameLabel" style="-fx-font-size: 24px; -fx-font-weight: bold;" styleClass=".user-name" text="Попов Григорий" wrapText="true" />
+                <Label fx:id="usernameLabel" style="-fx-font-size: 16px; -fx-font-style: italic;" styleClass=".user-login" text="tordek" />
+            </children>
+            <padding>
+                <Insets left="4.0" />
+            </padding>
+        </VBox>
+    </children>
+    <padding>
+        <Insets left="16.0" />
+    </padding>
+</HBox>

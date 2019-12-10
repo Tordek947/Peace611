@@ -10,7 +10,9 @@ import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class SignInPresenter {
 
     @FXML

@@ -26,8 +26,8 @@ public class DrawerManager {
                 new Avatar(21, new Image(DrawerManager.class.getResourceAsStream("/icon.png"))));
         drawer.setHeader(header);
 
-        final Item usersItem = new ViewItem("Users", MaterialDesignIcon.HOME.graphic(), USERS_VIEW, ViewStackPolicy.SKIP);
-        final Item signinItem = new ViewItem("SignIn", MaterialDesignIcon.DASHBOARD.graphic(), SIGN_IN_VIEW);
+        final Item usersItem = new ViewItem("Users", MaterialDesignIcon.HOME.graphic(), USERS_VIEW);
+        final Item signinItem = new ViewItem("SignIn", MaterialDesignIcon.PERSON.graphic(), SIGN_IN_VIEW, ViewStackPolicy.SKIP);
         drawer.getItems().addAll(usersItem, signinItem);
 
         if (Platform.isDesktop()) {

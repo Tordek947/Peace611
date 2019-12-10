@@ -1,5 +1,6 @@
 package ua.com.kl.cmathtutor.itcapp;
 
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import ua.com.kl.cmathtutor.itcapp.view.UserProfileView;
 import ua.com.kl.cmathtutor.itcapp.view.UsersView;
 import ua.com.kl.cmathtutor.itcapp.view.SignInView;
@@ -14,6 +15,13 @@ public class GluonApplication extends MobileApplication {
     public static final String USERS_VIEW = HOME_VIEW;
     public static final String SIGN_IN_VIEW = "SignIn View";
     public static final String USER_PROFILE_VIEW = "User Profile View";
+    public static AnnotationConfigApplicationContext context;
+
+    static {
+        context = new AnnotationConfigApplicationContext();
+        context.register(SpringConfig.class);
+        context.refresh();
+    }
     
     @Override
     public void init() {
