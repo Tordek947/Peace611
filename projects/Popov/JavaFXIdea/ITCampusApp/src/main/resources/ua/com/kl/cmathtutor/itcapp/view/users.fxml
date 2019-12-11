@@ -36,70 +36,7 @@
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
             <CardPane fx:id="userTiles" prefHeight="501.0" prefWidth="350.0">
-               <items>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
-                     <children>
-                        <Avatar radius="32.0">
-                           <image>
-                              <Image url="@../../../../../../defaultAvatar.jpg" />
-                           </image>
-                        </Avatar>
-                        <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="246.0" styleClass=".user-tile">
-                           <children>
-                              <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" styleClass=".user-name" text="Попов Григорий" wrapText="true" />
-                              <Label style="-fx-font-size: 16px; -fx-font-style: italic;" styleClass=".user-login" text="tordek" />
-                           </children>
-                           <padding>
-                              <Insets left="4.0" />
-                           </padding>
-                        </VBox>
-                     </children>
-                     <padding>
-                        <Insets left="16.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
-                     <children>
-                        <Avatar radius="32.0">
-                           <image>
-                              <Image url="@../../../../../../defaultAvatar.jpg" />
-                           </image></Avatar>
-                        <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="246.0" styleClass=".user-tile">
-                           <children>
-                              <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" styleClass=".user-name" text="Алексеев Вениамин" wrapText="true" />
-                              <Label style="-fx-font-size: 16px; -fx-font-style: italic;" styleClass=".user-login" text="keshaCarrot" />
-                           </children>
-                           <padding>
-                              <Insets left="4.0" />
-                           </padding>
-                        </VBox>
-                     </children>
-                     <padding>
-                        <Insets left="16.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
-                     <children>
-                        <Avatar radius="32.0">
-                           <image>
-                              <Image url="@../../../../../../defaultAvatar.jpg" />
-                           </image>
-                        </Avatar>
-                        <VBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="247.0" styleClass=".user-tile">
-                           <children>
-                              <Label style="-fx-font-size: 24px; -fx-font-weight: bold;" styleClass=".user-name" text="Брендибак Мериадок" wrapText="true" />
-                              <Label style="-fx-font-size: 16px; -fx-font-style: italic;" styleClass=".user-login" text="Frodos_bff" />
-                           </children>
-                           <padding>
-                              <Insets left="4.0" />
-                           </padding>
-                        </VBox>
-                     </children>
-                     <padding>
-                        <Insets left="16.0" />
-                     </padding>
-                  </HBox>
-               </items>
+
             </CardPane>
          </children>
       </VBox>

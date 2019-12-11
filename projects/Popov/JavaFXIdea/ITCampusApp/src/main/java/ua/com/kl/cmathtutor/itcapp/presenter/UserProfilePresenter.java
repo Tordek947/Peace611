@@ -9,15 +9,20 @@ import com.google.common.collect.Lists;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import ua.com.kl.cmathtutor.itcapp.InvisibleItemsController;
+import ua.com.kl.cmathtutor.itcapp.model.User;
+import ua.com.kl.cmathtutor.itcapp.service.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class UserProfilePresenter {
+public class UserProfilePresenter extends InvisibleItemsController {
 
     @FXML
     private Avatar avatar;
@@ -66,18 +71,26 @@ public class UserProfilePresenter {
                         MobileApplication.getInstance().getDrawer().open()));
                 appBar.setTitleText("User Profile");
                 bindVisibleProperties();
+                initializeButtonHandlers();
             }
         });
     }
 
-    private void bindVisibleProperties() {
-        for (Node node : getAllNodesToBindVisibleProperty()) {
-            node.setManaged(node.isVisible());
-            node.managedProperty().bindBidirectional(node.visibleProperty());
-        }
+    private void initializeButtonHandlers() {
+
     }
 
-    private Iterable<? extends Node> getAllNodesToBindVisibleProperty() {
+    public void setUserDataToPresent(User user, Image userAvatar) {
+        System.out.println("Setting user login " + user.getLogin());
+        loginLabel.setText(user.getLogin());
+
+        nameInput.setText(user.getName());
+        surnameInput.setText(user.getSurname());
+        fullNameLabel.setText(user.getSurname() + " " + user.getName());
+        avatar.setImage(userAvatar);
+    }
+    @Override
+    protected Iterable<? extends Node> getAllNodesToBindVisibleProperty() {
         return Lists.newArrayList(birthDatePicker, birthLabel, cityInput, cityLabel, fullNameLabel, nameInput,
                 phoneInput, phoneLabel, saveButton, surnameInput);
     }
