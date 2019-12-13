@@ -97,5 +97,4 @@ public class UsersPresenter {
         reloadSpinner.setVisible(true);
         getAllUsersService.start();
     }
-
 }
