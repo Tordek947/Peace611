@@ -1,13 +1,20 @@
 package ua.com.kl.cmathtutor.itcapp.model;
 
+import java.util.EnumSet;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ua.com.kl.cmathtutor.itcapp.service.AuthenticationService;
 
-import java.util.EnumSet;
-
+/**
+ * Is used within {@link AuthenticationService} to get currently authenticated
+ * user.
+ * 
+ * @author Hryhorii_Popov
+ *
+ */
 @Builder
 @Data
 @NoArgsConstructor

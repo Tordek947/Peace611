@@ -5,6 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Model to store user login and password
+ * @author Hryhorii_Popov
+ *
+ */
 @Builder
 @Data
 @NoArgsConstructor

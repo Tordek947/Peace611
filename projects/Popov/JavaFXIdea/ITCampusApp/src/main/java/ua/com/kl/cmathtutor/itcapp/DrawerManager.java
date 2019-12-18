@@ -16,28 +16,35 @@ import static ua.com.kl.cmathtutor.itcapp.GluonApplication.SIGN_IN_VIEW;
 
 import javafx.scene.image.Image;
 
+/**
+ * Is used to manage the main menu views (i.e. <i>header</i> in SRS
+ * 
+ * @author Hryhorii_Popov
+ *
+ */
 public class DrawerManager {
 
     public static void buildDrawer(MobileApplication app) {
-        NavigationDrawer drawer = app.getDrawer();
+	NavigationDrawer drawer = app.getDrawer();
 
-        NavigationDrawer.Header header = new NavigationDrawer.Header("Gluon Mobile",
-                "Multi View Project",
-                new Avatar(21, new Image(DrawerManager.class.getResourceAsStream("/icon.png"))));
-        drawer.setHeader(header);
+	NavigationDrawer.Header header = new NavigationDrawer.Header("Gluon Mobile",
+		"Multi View Project",
+		new Avatar(21, new Image(DrawerManager.class.getResourceAsStream("/icon.png"))));
+	drawer.setHeader(header);
 
-        final Item usersItem = new ViewItem("Users", MaterialDesignIcon.HOME.graphic(), USERS_VIEW);
-        final Item signinItem = new ViewItem("SignIn", MaterialDesignIcon.PERSON.graphic(), SIGN_IN_VIEW, ViewStackPolicy.SKIP);
-        drawer.getItems().addAll(usersItem, signinItem);
+	final Item usersItem = new ViewItem("Users", MaterialDesignIcon.HOME.graphic(), USERS_VIEW);
+	final Item signinItem = new ViewItem("SignIn", MaterialDesignIcon.PERSON.graphic(), SIGN_IN_VIEW,
+		ViewStackPolicy.SKIP);
+	drawer.getItems().addAll(usersItem, signinItem);
 
-        if (Platform.isDesktop()) {
-            final Item quitItem = new Item("Quit", MaterialDesignIcon.EXIT_TO_APP.graphic());
-            quitItem.selectedProperty().addListener((obs, ov, nv) -> {
-                if (nv) {
-                    Services.get(LifecycleService.class).ifPresent(LifecycleService::shutdown);
-                }
-            });
-            drawer.getItems().add(quitItem);
-        }
+	if (Platform.isDesktop()) {
+	    final Item quitItem = new Item("Quit", MaterialDesignIcon.EXIT_TO_APP.graphic());
+	    quitItem.selectedProperty().addListener((obs, ov, nv) -> {
+		if (nv) {
+		    Services.get(LifecycleService.class).ifPresent(LifecycleService::shutdown);
+		}
+	    });
+	    drawer.getItems().add(quitItem);
+	}
     }
 }
