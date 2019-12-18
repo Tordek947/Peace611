@@ -1,26 +1,33 @@
 package ua.com.kl.cmathtutor.itcapp.presenter;
 
+import org.springframework.stereotype.Controller;
+
 import com.gluonhq.charm.glisten.application.MobileApplication;
 import com.gluonhq.charm.glisten.control.AppBar;
 import com.gluonhq.charm.glisten.control.Avatar;
 import com.gluonhq.charm.glisten.mvc.View;
 import com.gluonhq.charm.glisten.visual.MaterialDesignIcon;
 import com.google.common.collect.Lists;
+
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import ua.com.kl.cmathtutor.itcapp.InvisibleItemsController;
+import ua.com.kl.cmathtutor.itcapp.model.Subject;
 import ua.com.kl.cmathtutor.itcapp.model.User;
-import ua.com.kl.cmathtutor.itcapp.service.UserService;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * Presenter for user-profile view
+ * 
+ * @author Hryhorii_Popov
+ *
+ */
 @Controller
 public class UserProfilePresenter extends InvisibleItemsController {
 
@@ -53,7 +60,7 @@ public class UserProfilePresenter extends InvisibleItemsController {
     @FXML
     private Label educationYearsLabel;
     @FXML
-    private TableView subjectsTable;
+    private TableView<Subject> subjectsTable;
     @FXML
     private GridPane skillsGridPane;
     @FXML
@@ -64,16 +71,16 @@ public class UserProfilePresenter extends InvisibleItemsController {
     private View userProfileView;
 
     public void initialize() {
-        userProfileView.showingProperty().addListener((obs, oldValue, newValue) -> {
-            if (newValue) {
-                AppBar appBar = MobileApplication.getInstance().getAppBar();
-                appBar.setNavIcon(MaterialDesignIcon.MENU.button(e ->
-                        MobileApplication.getInstance().getDrawer().open()));
-                appBar.setTitleText("User Profile");
-                bindVisibleProperties();
-                initializeButtonHandlers();
-            }
-        });
+	userProfileView.showingProperty().addListener((obs, oldValue, newValue) -> {
+	    if (newValue) {
+		AppBar appBar = MobileApplication.getInstance().getAppBar();
+		appBar.setNavIcon(
+			MaterialDesignIcon.MENU.button(e -> MobileApplication.getInstance().getDrawer().open()));
+		appBar.setTitleText("User Profile");
+		bindVisibleProperties();
+		initializeButtonHandlers();
+	    }
+	});
     }
 
     private void initializeButtonHandlers() {
@@ -81,17 +88,18 @@ public class UserProfilePresenter extends InvisibleItemsController {
     }
 
     public void setUserDataToPresent(User user, Image userAvatar) {
-        System.out.println("Setting user login " + user.getLogin());
-        loginLabel.setText(user.getLogin());
+	System.out.println("Setting user login " + user.getLogin());
+	loginLabel.setText(user.getLogin());
 
-        nameInput.setText(user.getName());
-        surnameInput.setText(user.getSurname());
-        fullNameLabel.setText(user.getSurname() + " " + user.getName());
-        avatar.setImage(userAvatar);
+	nameInput.setText(user.getName());
+	surnameInput.setText(user.getSurname());
+	fullNameLabel.setText(user.getSurname() + " " + user.getName());
+	avatar.setImage(userAvatar);
     }
+
     @Override
     protected Iterable<? extends Node> getAllNodesToBindVisibleProperty() {
-        return Lists.newArrayList(birthDatePicker, birthLabel, cityInput, cityLabel, fullNameLabel, nameInput,
-                phoneInput, phoneLabel, saveButton, surnameInput);
+	return Lists.newArrayList(birthDatePicker, birthLabel, cityInput, cityLabel, fullNameLabel, nameInput,
+		phoneInput, phoneLabel, saveButton, surnameInput);
     }
 }
