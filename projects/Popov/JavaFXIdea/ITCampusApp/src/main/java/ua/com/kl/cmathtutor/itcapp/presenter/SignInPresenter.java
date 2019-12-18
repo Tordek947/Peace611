@@ -12,6 +12,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import org.springframework.stereotype.Controller;
 
+/**
+ * Presenter for sign-in view
+ * @author Hryhorii_Popov
+ *
+ */
 @Controller
 public class SignInPresenter {
 

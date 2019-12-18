@@ -7,6 +7,12 @@ buildscript {
     }
 }
 
+apply plugin: 'java'
+
+javadoc {
+    source = sourceSets.main.allJava
+    classpath = configurations.compile
+}
 apply plugin: 'org.javafxports.jfxmobile'
 
 repositories {
