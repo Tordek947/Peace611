@@ -24,9 +24,8 @@ import ua.com.kl.cmathtutor.itcapp.model.User;
 
 /**
  * Presenter for user-profile view
- * 
- * @author Hryhorii_Popov
  *
+ * @author Hryhorii_Popov
  */
 @Controller
 public class UserProfilePresenter extends InvisibleItemsController {
@@ -71,16 +70,16 @@ public class UserProfilePresenter extends InvisibleItemsController {
     private View userProfileView;
 
     public void initialize() {
-	userProfileView.showingProperty().addListener((obs, oldValue, newValue) -> {
-	    if (newValue) {
-		AppBar appBar = MobileApplication.getInstance().getAppBar();
-		appBar.setNavIcon(
-			MaterialDesignIcon.MENU.button(e -> MobileApplication.getInstance().getDrawer().open()));
-		appBar.setTitleText("User Profile");
-		bindVisibleProperties();
-		initializeButtonHandlers();
-	    }
-	});
+        userProfileView.showingProperty().addListener((obs, oldValue, newValue) -> {
+            if (newValue) {
+                AppBar appBar = MobileApplication.getInstance().getAppBar();
+                appBar.setNavIcon(
+                        MaterialDesignIcon.MENU.button(e -> MobileApplication.getInstance().getDrawer().open()));
+                appBar.setTitleText("User Profile");
+                bindVisibleProperties();
+                initializeButtonHandlers();
+            }
+        });
     }
 
     private void initializeButtonHandlers() {
@@ -88,18 +87,18 @@ public class UserProfilePresenter extends InvisibleItemsController {
     }
 
     public void setUserDataToPresent(User user, Image userAvatar) {
-	System.out.println("Setting user login " + user.getLogin());
-	loginLabel.setText(user.getLogin());
+        System.out.println("Setting user login " + user.getLogin());
+        loginLabel.setText(user.getLogin());
 
-	nameInput.setText(user.getName());
-	surnameInput.setText(user.getSurname());
-	fullNameLabel.setText(user.getSurname() + " " + user.getName());
-	avatar.setImage(userAvatar);
+        nameInput.setText(user.getName());
+        surnameInput.setText(user.getSurname());
+        fullNameLabel.setText(user.getSurname() + " " + user.getName());
+        avatar.setImage(userAvatar);
     }
 
     @Override
     protected Iterable<? extends Node> getAllNodesToBindVisibleProperty() {
-	return Lists.newArrayList(birthDatePicker, birthLabel, cityInput, cityLabel, fullNameLabel, nameInput,
-		phoneInput, phoneLabel, saveButton, surnameInput);
+        return Lists.newArrayList(birthDatePicker, birthLabel, cityInput, cityLabel, fullNameLabel, nameInput,
+                phoneInput, phoneLabel, saveButton, surnameInput);
     }
 }

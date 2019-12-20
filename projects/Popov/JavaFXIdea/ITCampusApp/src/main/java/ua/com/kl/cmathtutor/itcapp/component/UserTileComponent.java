@@ -25,8 +25,8 @@ import ua.com.kl.cmathtutor.itcapp.view.UsersView;
  * Component, is an object, which encapsulates both Controller and View principle.
  * Owing to this it can be reused multiple times within the other view.
  * This particular component is used to display UserModel details in shorten form within UsersView
- * @author Hryhorii_Popov
  *
+ * @author Hryhorii_Popov
  */
 @Component
 @Scope("prototype")
@@ -46,21 +46,21 @@ public class UserTileComponent extends InvisibleItemsController {
 
     @PostConstruct
     private void init() {
-	FXMLLoader selfLoader = new FXMLLoader();
-	selfLoader.setControllerFactory(el -> this);
-	selfLoader.setLocation(UsersView.class.getResource("user-tile.fxml"));
+        FXMLLoader selfLoader = new FXMLLoader();
+        selfLoader.setControllerFactory(el -> this);
+        selfLoader.setLocation(UsersView.class.getResource("user-tile.fxml"));
 
-	try {
-	    root = selfLoader.load();
-	    bindVisibleProperties();
-	} catch (IOException e) {
-	    System.out.println("Error loading user-tile.fxml");
-	    log.error("Exception occured during Component initialization", e);
-	}
+        try {
+            root = selfLoader.load();
+            bindVisibleProperties();
+        } catch (IOException e) {
+            System.out.println("Error loading user-tile.fxml");
+            log.error("Exception occured during Component initialization", e);
+        }
     }
 
     @Override
     protected Iterable<? extends Node> getAllNodesToBindVisibleProperty() {
-	return Lists.newArrayList(avatar, avatarLoadingIndicator);
+        return Lists.newArrayList(avatar, avatarLoadingIndicator);
     }
 }

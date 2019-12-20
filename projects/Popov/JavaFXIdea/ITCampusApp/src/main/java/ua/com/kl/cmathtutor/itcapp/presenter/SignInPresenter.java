@@ -23,9 +23,9 @@ public class SignInPresenter {
     @FXML
     private View signInView;
     @FXML
-    public TextField loginInput;
+    private TextField loginInput;
     @FXML
-    public PasswordField passwordInput;
+    private PasswordField passwordInput;
 
     public void initialize() {
         signInView.setShowTransitionFactory(BounceInRightTransition::new);
@@ -51,7 +51,7 @@ public class SignInPresenter {
     }
 
     @FXML
-    private void OnForgotPasswordClicked(ActionEvent actionEvent) {
+    private void onForgotPasswordClicked(ActionEvent actionEvent) {
     }
 
     @FXML
